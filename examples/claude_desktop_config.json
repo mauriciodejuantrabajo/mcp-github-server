@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "python",
+      "args": ["-m", "src.server"],
+      "cwd": "C:\\ruta\\a\\mcp-github-server",
+      "env": {
+        "GITHUB_TOKEN": "ghp_reemplazar_por_tu_token"
+      }
+    }
+  }
+}
+
