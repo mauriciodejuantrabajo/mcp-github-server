@@ -1,24 +1,26 @@
+> **Idioma / Language:** **English** · [Español](README.es.md)
+
 # mcp-github-server
 
-Servidor **MCP (Model Context Protocol)** para consultar y operar GitHub desde
-clientes compatibles como Claude Desktop, Claude Code o Cursor.
+**MCP (Model Context Protocol)** server to query and operate GitHub from
+compatible clients such as Claude Desktop, Claude Code or Cursor.
 
-Expone tools concretas para el trabajo diario con repos, issues y pull requests,
-usando la API REST de GitHub y un `GITHUB_TOKEN` opcional para lectura y requerido
-para escritura.
+It exposes concrete tools for day-to-day work with repos, issues and pull
+requests, using the GitHub REST API and an optional `GITHUB_TOKEN` (optional for
+reading, required for writing).
 
 ## Tools
 
-| Tool | Que hace | Token |
-|------|----------|-------|
-| `list_repos` | Lista repos publicos de un owner | opcional |
-| `get_repo` | Resume metadata de `owner/repo` | opcional |
-| `list_issues` | Lista issues, excluyendo PRs | opcional |
-| `create_issue` | Crea un issue | requerido |
-| `list_pull_requests` | Lista PRs | opcional |
-| `get_pull_request` | Resume un PR por numero | opcional |
+| Tool | What it does | Token |
+|------|--------------|-------|
+| `list_repos` | Lists an owner's public repos | optional |
+| `get_repo` | Summarizes metadata of `owner/repo` | optional |
+| `list_issues` | Lists issues, excluding PRs | optional |
+| `create_issue` | Creates an issue | required |
+| `list_pull_requests` | Lists PRs | optional |
+| `get_pull_request` | Summarizes a PR by number | optional |
 
-## Instalacion
+## Installation
 
 ```bash
 git clone https://github.com/mauriciodejuantrabajo/mcp-github-server.git
@@ -30,25 +32,25 @@ pip install -r requirements.txt
 copy .env.example .env
 ```
 
-Edita `.env` y agrega `GITHUB_TOKEN` si vas a crear issues o quieres mayor rate
-limit para consultas.
+Edit `.env` and add `GITHUB_TOKEN` if you plan to create issues or want a higher
+rate limit for queries.
 
-## Probar con MCP Inspector
+## Test with MCP Inspector
 
 ```bash
 mcp dev src/server.py
 ```
 
-Pruebas sugeridas:
+Suggested tests:
 
-- `list_repos` con `owner = "openai"`
-- `get_repo` con `owner = "modelcontextprotocol"`, `repo = "python-sdk"`
-- `list_pull_requests` con `owner = "modelcontextprotocol"`, `repo = "python-sdk"`
+- `list_repos` with `owner = "openai"`
+- `get_repo` with `owner = "modelcontextprotocol"`, `repo = "python-sdk"`
+- `list_pull_requests` with `owner = "modelcontextprotocol"`, `repo = "python-sdk"`
 
 ## Claude Desktop
 
-Usa [examples/claude_desktop_config.json](examples/claude_desktop_config.json) como
-base y ajusta la ruta absoluta del repo.
+Use [examples/claude_desktop_config.json](examples/claude_desktop_config.json) as
+a base and adjust the absolute path of the repo.
 
 ```json
 {
@@ -56,20 +58,20 @@ base y ajusta la ruta absoluta del repo.
     "github": {
       "command": "python",
       "args": ["-m", "src.server"],
-      "cwd": "C:\\ruta\\a\\mcp-github-server",
+      "cwd": "C:\\path\\to\\mcp-github-server",
       "env": {
-        "GITHUB_TOKEN": "ghp_reemplazar_por_tu_token"
+        "GITHUB_TOKEN": "ghp_replace_with_your_token"
       }
     }
   }
 }
 ```
 
-## Transportes
+## Transports
 
 ```bash
 python -m src.server          # stdio
-python -m src.server --http   # Streamable HTTP en 127.0.0.1:8001
+python -m src.server --http   # Streamable HTTP on 127.0.0.1:8001
 ```
 
 ## Tests
@@ -78,5 +80,4 @@ python -m src.server --http   # Streamable HTTP en 127.0.0.1:8001
 pytest
 ```
 
-Los tests mockean HTTP, asi que no requieren token ni red real.
-
+The tests mock HTTP, so they require no token and no real network.
